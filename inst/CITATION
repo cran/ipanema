@@ -1,0 +1,27 @@
+citHeader("To cite package 'ipanema' in publications use:")
+
+ year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+ vers <- paste("R package version", meta$Version)
+
+ bibentry(
+  bibtype = 'Manual',
+	title = 'ipanema: Read Data From LimeSurvey',
+	author = c(
+	  person(
+	    given = 'Maximilian',
+	    family = 'Hagspiel',
+	    email = 'maxhag@mailbox.org'
+	  )
+	),
+	year = year,
+	note = vers,
+	textVersion =
+	paste(
+	  "Maximilian Hagspiel (",
+	  year,
+	  "). ipanema: Read Data From LimeSurvey. ",
+	  vers,
+	  ".",
+	  sep=""
+	)
+)
