@@ -1,11 +1,11 @@
-f3a6c8c0dcb30218dc38a7487f73d46c *DESCRIPTION
+3ead9ef7ff27f9a89e3c51a7dc4818e2 *DESCRIPTION
 c1eef496cb52bf7eef0f2cf79ec1f9fd *LICENSE
-ecaf55301d41b9d5b5b51597bac53007 *NAMESPACE
+72f28c8a5ef863e59173b4378408fccc *NAMESPACE
 1d5fb1751d407bbfa17cb4b5fab90f33 *R/base64_to_df.R
 ef1ac536d4b38562d7b94143a375e639 *R/connect_to_limesurvey.R
 265c052c3c53f587301ff463f55876ab *R/fix_column_data_types.R
-84f634405be47aa764810f83d3d6293b *R/get_answer_options.R
-f4a2b0ff262fada97cb59b7932babb74 *R/get_question_text.R
+771fc0d40ca97df6a5e3de9876fe98f3 *R/get_answer_options.R
+53ca165c3aa6a37592404a8654ceead0 *R/get_question_text.R
 5ccb616b687d8a1ab82eb254864762fa *R/get_survey_data.R
 903d981c6a0a7fa42ca104ed061af560 *R/limesurvey_api_call.R
 0a40117fbe5885459c456426ded7292b *inst/CITATION

@@ -34,44 +34,85 @@
 #' answer_options <- get_answer_options("bdi.01")
 #' }
 #'
-#' @importFrom DBI dbGetQuery
+#' @importFrom DBI dbConnect dbDisconnect dbGetQuery
 #'
 #' @export
 
 get_answer_options <- function(question_code) {
-  # Der `question_code` schaut ja z.B. so aus: "sedi.SQ001".
-  # Das will ich zuerst in die linke Hälfte (question group) und die rechte
-  # Hälfte (question) zerlegen:
-  dot_index <- which(strsplit(question_code, '')[[1]] == '.')
-  group <- substring(
-    question_code,
-    first = 1,
-    last = dot_index - 1
-  )
-  question <- substring(
-    question_code,
-    first = dot_index + 1
+  if (!exists('limesurvey_session_key', envir = ipanema_cache)) {
+    stop(paste0(
+      'You need to call `connect_to_limesurvey()` before calling any other ',
+      'ipanema functions.'
+    ))
+  }
+
+  # Connect to MySQL
+  conn <- dbConnect(
+    MySQL(),
+    user = ipanema_cache$mysql_username,
+    password = ipanema_cache$mysql_password,
+    dbname = ipanema_cache$mysql_dbname,
+    host = ipanema_cache$mysql_host,
+    port = ipanema_cache$mysql_port
   )
 
-  # ID der group bestimmen
-  parent_qid <- dbGetQuery(
-    getOption('limesurvey_mysql_connection'),
-    paste0(
-      'SELECT qid ',
-      'FROM questions ',
-      "WHERE type = 'F' AND ",
-      'title = ', "'", group, "'"
+  if (grepl("\\.", question_code)) {
+    # Der `question_code` schaut ja z.B. so aus: "sedi.SQ001".
+    # Das will ich zuerst in die linke Hälfte (question group) und die rechte
+    # Hälfte (question) zerlegen:
+    dot_index <- which(strsplit(question_code, '')[[1]] == '.')
+    group <- substring(
+      question_code,
+      first = 1,
+      last = dot_index - 1
     )
-  )$qid
+    question <- substring(
+      question_code,
+      first = dot_index + 1
+    )
 
-  df_answers <- dbGetQuery(
-    getOption('limesurvey_mysql_connection'),
-    paste0(
-      'SELECT code, answer ',
-      'FROM answers ',
-      'WHERE qid = ', parent_qid
+    # ID der group bestimmen
+    parent_qid <- dbGetQuery(
+      conn,
+      paste0(
+        'SELECT qid ',
+        'FROM questions ',
+        "WHERE type = 'F' AND ",
+        'title = ', "'", group, "'"
+      )
+    )$qid
+
+    df_answers <- dbGetQuery(
+      conn,
+      paste0(
+        'SELECT code, answer ',
+        'FROM answers ',
+        'WHERE qid = ', parent_qid
+      )
     )
-  )
+  } else{
+    # ID der question bestimmen
+    question_qid <- dbGetQuery(
+      conn,
+      paste0(
+        'SELECT qid ',
+        'FROM questions ',
+        "WHERE type <> 'F' AND ",
+        'title = ', "'", question_code, "'"
+      )
+    )$qid
+
+    df_answers <- dbGetQuery(
+      conn,
+      paste0(
+        'SELECT code, answer ',
+        'FROM answers ',
+        'WHERE qid = ', question_qid
+      )
+    )
+  }
+
+  dbDisconnect(conn)
 
   return(df_answers)
 }
