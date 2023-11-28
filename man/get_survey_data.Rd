@@ -19,6 +19,12 @@ Column names follow a dot-based naming scheme:
 \description{
 Get collected data from a specific survey on the connected
 `LimeSurvey` instance.
+Fails horribly saying
+```
+Error in make.names(col.names, unique = TRUE) :
+invalid multibyte string 1
+```
+if data is empty.
 }
 \examples{
 # This example assumes a locally hosted `LimeSurvey` instance using a locally

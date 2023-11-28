@@ -2,6 +2,12 @@
 #'
 #' @description Get collected data from a specific survey on the connected
 #' `LimeSurvey` instance.
+#' Fails horribly saying
+#' ```
+#' Error in make.names(col.names, unique = TRUE) :
+#' invalid multibyte string 1
+#' ```
+#' if data is empty.
 #'
 #' @param survey_id ID of the survey from which the collected data shall be
 #' extracted.
