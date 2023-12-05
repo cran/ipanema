@@ -2,12 +2,7 @@
 #'
 #' @description Get collected data from a specific survey on the connected
 #' `LimeSurvey` instance.
-#' Fails horribly saying
-#' ```
-#' Error in make.names(col.names, unique = TRUE) :
-#' invalid multibyte string 1
-#' ```
-#' if data is empty.
+#' Returns `NULL` if no data has been collected in this survey.
 #'
 #' @param survey_id ID of the survey from which the collected data shall be
 #' extracted.
@@ -16,6 +11,7 @@
 #' @return A `data.frame` object containing the survey data.
 #' Column names follow a dot-based naming scheme:
 #' <group title>.<subquestion title>.
+#' `NULL` if no data has been collected.
 #'
 #' @examples
 #' # This example assumes a locally hosted `LimeSurvey` instance using a locally
@@ -62,11 +58,16 @@ get_survey_data <- function(
     method = 'export_responses',
     params = params
   )
-  df_raw <- base64_to_df(
-    unlist(
-      results
+  tryCatch({
+    df_raw <- base64_to_df(
+      unlist(
+        results
+      )
     )
-  )
+  }, error = {
+    message('Returning NULL because no data has been collected by this survey')
+    return(NULL)
+  })
 
   # Remove trailing dots from item columns
   names(df_raw) <- names(df_raw) %>%

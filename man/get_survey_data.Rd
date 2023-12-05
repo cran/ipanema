@@ -15,16 +15,12 @@ extracted.
 A `data.frame` object containing the survey data.
 Column names follow a dot-based naming scheme:
 <group title>.<subquestion title>.
+`NULL` if no data has been collected.
 }
 \description{
 Get collected data from a specific survey on the connected
 `LimeSurvey` instance.
-Fails horribly saying
-```
-Error in make.names(col.names, unique = TRUE) :
-invalid multibyte string 1
-```
-if data is empty.
+Returns `NULL` if no data has been collected in this survey.
 }
 \examples{
 # This example assumes a locally hosted `LimeSurvey` instance using a locally
