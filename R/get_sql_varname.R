@@ -1,11 +1,13 @@
 #' @title get_sql_varname
 #'
 #' @description Get the internal SQL field name (e.g. "697929X4X21") to a
-#' question in the dataset.
+#' question from a specific survey in the dataset.
 #'
 #' @param question_code Code by which to identify the question.
 #' Follows a dot-based naming scheme:
 #' <group title>.<subquestion title>.
+#'
+#' @param survey_id Survey-ID of the survey from which to select the question.
 #'
 #' @return `character` object containing the field name
 #'
@@ -29,7 +31,7 @@
 #'   mysql_password = '1234lime'
 #' )
 #'
-#' q_varname <- get_sql_varname("bdi.01")
+#' q_varname <- get_sql_varname("bdi.01", 123456)
 #' }
 #'
 #' @import magrittr
@@ -38,7 +40,10 @@
 #'
 #' @export
 
-get_sql_varname <- function(question_code) {
+get_sql_varname <- function(
+    question_code,
+    survey_id
+) {
   if (!exists('limesurvey_session_key', envir = ipanema_cache)) {
     stop(paste0(
       'You need to call `connect_to_limesurvey()` before calling any other ',
@@ -77,8 +82,9 @@ get_sql_varname <- function(question_code) {
       paste0(
         'SELECT gid, qid ',
         'FROM limesurvey.questions ',
-        "WHERE type = 'F' AND ",
-        'title = ', "'", group, "'"
+        "WHERE type IN ('F', 'K') AND ",
+        'title = ', "'", group, "' AND ",
+        "sid = ", survey_id
       )
     )
     parent_gid <- parent_ids[1, 'gid']
@@ -98,7 +104,7 @@ get_sql_varname <- function(question_code) {
       paste0(
         'SELECT qid, sid, gid, title ',
         'FROM limesurvey.questions ',
-        "WHERE type <> 'F' AND ",
+        "WHERE type NOT IN ('F', 'K') AND ",
         "parent_qid = ", parent_qid, " ",
         "ORDER BY qid"
       )
@@ -139,7 +145,8 @@ get_sql_varname <- function(question_code) {
         'SELECT gid, qid, sid ',
         'FROM limesurvey.questions ',
         "WHERE title = '", question_code, "' AND ",
-        "parent_qid = 0"
+        "parent_qid = 0 AND ",
+        "sid = ", survey_id
       )
     )
     question_gid <- question_ids[1, 'gid']

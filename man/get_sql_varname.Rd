@@ -4,19 +4,21 @@
 \alias{get_sql_varname}
 \title{get_sql_varname}
 \usage{
-get_sql_varname(question_code)
+get_sql_varname(question_code, survey_id)
 }
 \arguments{
 \item{question_code}{Code by which to identify the question.
 Follows a dot-based naming scheme:
 <group title>.<subquestion title>.}
+
+\item{survey_id}{Survey-ID of the survey from which to select the question.}
 }
 \value{
 `character` object containing the field name
 }
 \description{
 Get the internal SQL field name (e.g. "697929X4X21") to a
-question in the dataset.
+question from a specific survey in the dataset.
 }
 \examples{
 # This example assumes a locally hosted `LimeSurvey` instance using a locally
@@ -38,7 +40,7 @@ connect_to_limesurvey(
   mysql_password = '1234lime'
 )
 
-q_varname <- get_sql_varname("bdi.01")
+q_varname <- get_sql_varname("bdi.01", 123456)
 }
 
 }

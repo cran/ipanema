@@ -37,7 +37,6 @@
 get_survey_data <- function(
     survey_id
 ) {
-  print
   if (!exists('limesurvey_session_key', envir = ipanema_cache)) {
     stop(paste0(
         'You need to call `connect_to_limesurvey()` before calling any other ',
@@ -58,19 +57,23 @@ get_survey_data <- function(
     method = 'export_responses',
     params = params
   )
-  tryCatch({
-    df_raw <- base64_to_df(
+  df_raw <- tryCatch({
+    base64_to_df(
       unlist(
         results
       )
     )
-  }, error = {
+  }, error = function(e) {
     message('Returning NULL because no data has been collected by this survey')
-    return(NULL)
+    NULL
   })
+  if (is.null(df_raw)) {
+    return(NULL)
+  }
 
   # Remove trailing dots from item columns
-  names(df_raw) <- names(df_raw) %>%
+  names(df_raw) <-
+    names(df_raw) %>%
     sapply(function(colname) {
       if(endsWith(colname, '.')) {
         substring(colname, 1, nchar(colname) - 1)
@@ -81,5 +84,5 @@ get_survey_data <- function(
 
   df_tidy <- fix_column_data_types(df_raw)
 
-  return (df_tidy)
+  return(df_tidy)
 }
