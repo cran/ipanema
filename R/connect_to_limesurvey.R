@@ -70,9 +70,9 @@ connect_to_limesurvey <- function(
     )
   )
 
-  res <- POST(
+  res <- httr::POST(
     api_url,
-    content_type_json(),
+    httr::content_type_json(),
     body = jsonlite::toJSON(
       body.json,
       auto_unbox = TRUE
@@ -80,11 +80,9 @@ connect_to_limesurvey <- function(
   )
 
   session_key <- as.character(
-    jsonlite::fromJSON(
-      content(
-        res,
-        encoding = 'utf-8'
-      )
+    httr::content(
+      res,
+      encoding = 'utf-8'
     )$result
   )
 
