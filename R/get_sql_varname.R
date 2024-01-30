@@ -81,7 +81,7 @@ get_sql_varname <- function(
       conn,
       paste0(
         'SELECT gid, qid ',
-        'FROM limesurvey.questions ',
+        'FROM ', ipanema_cache$mysql_dbname, '.questions ',
         "WHERE type IN ('F', 'K') AND ",
         'title = ', "'", group, "' AND ",
         "sid = ", survey_id
@@ -103,7 +103,7 @@ get_sql_varname <- function(
       conn,
       paste0(
         'SELECT qid, sid, gid, title ',
-        'FROM limesurvey.questions ',
+        'FROM ', ipanema_cache$mysql_dbname, '.questions ',
         "WHERE type NOT IN ('F', 'K') AND ",
         "parent_qid = ", parent_qid, " ",
         "ORDER BY qid"
@@ -143,7 +143,7 @@ get_sql_varname <- function(
       conn,
       paste0(
         'SELECT gid, qid, sid ',
-        'FROM limesurvey.questions ',
+        'FROM ', ipanema_cache$mysql_dbname, '.questions ',
         "WHERE title = '", question_code, "' AND ",
         "parent_qid = 0 AND ",
         "sid = ", survey_id

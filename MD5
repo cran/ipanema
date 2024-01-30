@@ -1,4 +1,4 @@
-b0344c0d2cef1dec7ce9f83e599c13d0 *DESCRIPTION
+358d84e24218f9247dc8439249611e8f *DESCRIPTION
 c1eef496cb52bf7eef0f2cf79ec1f9fd *LICENSE
 7a482170e8c075ec3c81d8f927156c6b *NAMESPACE
 1d5fb1751d407bbfa17cb4b5fab90f33 *R/base64_to_df.R
@@ -6,7 +6,7 @@ c1eef496cb52bf7eef0f2cf79ec1f9fd *LICENSE
 265c052c3c53f587301ff463f55876ab *R/fix_column_data_types.R
 771fc0d40ca97df6a5e3de9876fe98f3 *R/get_answer_options.R
 53ca165c3aa6a37592404a8654ceead0 *R/get_question_text.R
-5c5aef78d31d038b24acef85bab4002a *R/get_sql_varname.R
+ffb4b336038ca59be71a4f4dabbc54a1 *R/get_sql_varname.R
 9dee7fe21288cd69a941d1b002831c3b *R/get_survey_data.R
 3d6c87652361aa558a811bd72382633d *R/get_survey_id.R
 903d981c6a0a7fa42ca104ed061af560 *R/limesurvey_api_call.R
