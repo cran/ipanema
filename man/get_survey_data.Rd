@@ -4,12 +4,15 @@
 \alias{get_survey_data}
 \title{get_survey_data}
 \usage{
-get_survey_data(survey_id)
+get_survey_data(survey_id, completion_status = "all")
 }
 \arguments{
 \item{survey_id}{ID of the survey from which the collected data shall be
 extracted.
 6-digit integer.}
+
+\item{completion_status}{'complete' = Return only complete cases;
+'incomplete' = Return only incomplete cases; 'all' = Return both.}
 }
 \value{
 A `data.frame` object containing the survey data.
@@ -20,6 +23,7 @@ Column names follow a dot-based naming scheme:
 \description{
 Get collected data from a specific survey on the connected
 `LimeSurvey` instance.
+Includes complete and incomplete cases!
 Returns `NULL` if no data has been collected in this survey.
 }
 \examples{

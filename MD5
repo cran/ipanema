@@ -1,4 +1,4 @@
-358d84e24218f9247dc8439249611e8f *DESCRIPTION
+c52e54280e91bae15e92c91d72977c48 *DESCRIPTION
 c1eef496cb52bf7eef0f2cf79ec1f9fd *LICENSE
 7a482170e8c075ec3c81d8f927156c6b *NAMESPACE
 1d5fb1751d407bbfa17cb4b5fab90f33 *R/base64_to_df.R
@@ -7,7 +7,7 @@ c1eef496cb52bf7eef0f2cf79ec1f9fd *LICENSE
 771fc0d40ca97df6a5e3de9876fe98f3 *R/get_answer_options.R
 53ca165c3aa6a37592404a8654ceead0 *R/get_question_text.R
 ffb4b336038ca59be71a4f4dabbc54a1 *R/get_sql_varname.R
-9dee7fe21288cd69a941d1b002831c3b *R/get_survey_data.R
+23fc0c83023360de7a2b4cb9f6de0ceb *R/get_survey_data.R
 3d6c87652361aa558a811bd72382633d *R/get_survey_id.R
 903d981c6a0a7fa42ca104ed061af560 *R/limesurvey_api_call.R
 3a1403e5390a5d3ca78838cb4b8a322b *R/wipe_survey_data.R
@@ -19,7 +19,7 @@ ffb4b336038ca59be71a4f4dabbc54a1 *R/get_sql_varname.R
 73919ea9cb4eed525910c511f88acf6d *man/get_answer_options.Rd
 f830099b3c3c19799a6cdb53404733da *man/get_question_text.Rd
 5215a6ed1890fbe976ed2840c897ffa3 *man/get_sql_varname.Rd
-bb99b32559c3418fe6a88db0a730198a *man/get_survey_data.Rd
+266ca7afca63c06d929c21daa43a17ed *man/get_survey_data.Rd
 08e02706d2ff32de7d3bedc9d688e39e *man/get_survey_id.Rd
 4dc6727204d770291dc96778ee6f4fdb *man/limesurvey_api_call.Rd
 84b8aebf6ce5e7f4eb41ce0083a40bcd *man/wipe_survey_data.Rd

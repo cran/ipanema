@@ -2,11 +2,15 @@
 #'
 #' @description Get collected data from a specific survey on the connected
 #' `LimeSurvey` instance.
+#' Includes complete and incomplete cases!
 #' Returns `NULL` if no data has been collected in this survey.
 #'
 #' @param survey_id ID of the survey from which the collected data shall be
 #' extracted.
 #' 6-digit integer.
+#'
+#' @param completion_status 'complete' = Return only complete cases;
+#' 'incomplete' = Return only incomplete cases; 'all' = Return both.
 #'
 #' @return A `data.frame` object containing the survey data.
 #' Column names follow a dot-based naming scheme:
@@ -35,7 +39,8 @@
 #' @export
 
 get_survey_data <- function(
-    survey_id
+    survey_id,
+    completion_status = 'all'
 ) {
   if (!exists('limesurvey_session_key', envir = ipanema_cache)) {
     stop(paste0(
@@ -48,7 +53,7 @@ get_survey_data <- function(
     iSurveyID = survey_id,
     sDocumentType = 'csv',
     sLanguageCode = NULL,
-    sCompletionStatus = 'complete',
+    sCompletionStatus = completion_status,
     sHeadingType = 'code',
     sResponseType = 'short'
   )
